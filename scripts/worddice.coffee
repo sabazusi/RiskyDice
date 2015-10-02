@@ -5,6 +5,7 @@ module.exports = (robot) ->
 	emitter = new EventEmitter
 
 	who = {}
+	what = {}
 
 	getJson = (fileName, eventName) ->
 		json = {}
@@ -18,8 +19,11 @@ module.exports = (robot) ->
 
 	emitter.on "who_loaded", (jsonData) ->
 		who = jsonData
+	emitter.on "what_loaded", (jsonData) ->
+		what = jsonData
 
 	getJson("who.json", "who_loaded")
+	getJson("what.json", "what_loaded")
 
 	robot.respond /hoge/, (msg) ->
 		console.log who
