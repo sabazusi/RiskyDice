@@ -1,8 +1,19 @@
 module.exports = (robot) ->
 	fs = require('fs')
 	path = require('path')
-	filePath = path.normalize(__dirname + "/../resources/who.json")
+	who = {}
 
-	fs.readFile filePath, 'utf8', (error, data) ->
-		console.log data
+	getJson = (fileName) ->
+		json = {}
+		filePath = path.normalize __dirname + "/../resources/" + fileName
+		fs.exists filePath, (exists) ->
+			if exists
+				fs.readFile filePath, 'utf8', (error, body) ->
+					if body.length > 0
+						JSON.parse body
 
+
+	who = getJson("who.json")
+
+	robot.respond /hoge/, (msg) ->
+		console.log who
