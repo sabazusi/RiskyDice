@@ -4,11 +4,11 @@ module.exports = (robot) ->
 	{EventEmitter} = require 'events'
 	emitter = new EventEmitter
 
-	who = {}
-	what = {}
-	with = {}
+	_who = {}
+	_what = {}
+	_with = {}
 
-	getJson = (fileName, eventName) ->
+	_getJSON = (fileName, eventName) ->
 		json = {}
 		filePath = path.normalize __dirname + "/../resources/" + fileName
 		fs.exists filePath, (exists) ->
@@ -17,17 +17,20 @@ module.exports = (robot) ->
 					if body.length > 0
 						emitter.emit eventName, JSON.parse body
 
+	_make = () ->
+		"hoge"
+
 
 	emitter.on "who_loaded", (jsonData) ->
-		who = jsonData
+		_who = jsonData
 	emitter.on "what_loaded", (jsonData) ->
-		what = jsonData
+		_what = jsonData
 	emitter.on "with_loaded", (jsonData) ->
-		with = jsonData
+		_with = jsonData
 
-	getJson("who.json", "who_loaded")
-	getJson("what.json", "what_loaded")
-	getJson("with.json", "with_loaded")
+	_getJSON("who.json", "who_loaded")
+	_getJSON("what.json", "what_loaded")
+	_getJSON("with.json", "with_loaded")
 
-	robot.respond /hoge/, (msg) ->
-		console.log who
+	robot.hear /^(make)$/i, (msg) ->
+		msg.send _make()
