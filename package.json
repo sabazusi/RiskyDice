@@ -5,6 +5,7 @@
   "author": "sabazusi <kouhei.live@gmail.com>",
   "description": "5w1h",
   "dependencies": {
+    "cron": "^1.0.9",
     "hubot": "^2.16.0",
     "hubot-diagnostics": "0.0.1",
     "hubot-google-images": "^0.2.1",
